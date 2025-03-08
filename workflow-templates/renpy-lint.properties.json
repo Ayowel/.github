@@ -1,0 +1,13 @@
+{
+    "name": "Lint your Ren'Py project",
+    "description": "Lint your Ren'Py project everytime you make a change.",
+    "iconName": "octicon verified",
+    "categories": [
+        "Ren'Py",
+        "Continuous integration",
+        "code-quality"
+    ],
+    "filePatterns": [
+        ".*\\.rpy$"
+    ]
+}
