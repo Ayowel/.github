@@ -1,10 +1,10 @@
 {
-    "name": "Lint your Ren'Py project",
-    "description": "Lint your Ren'Py project everytime you make a change.",
+    "name": "Ren'Py Lint",
+    "description": "Lint a Ren'Py project.",
     "iconName": "octicon verified",
     "categories": [
         "Ren'Py",
-        "Continuous integration",
+        "continuous-integration",
         "code-quality"
     ],
     "filePatterns": [
