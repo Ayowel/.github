@@ -20,6 +20,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         path: project
+        lfs: true
 
     - name: "Load Ren'Py from cache"
       id: cache-renpy
