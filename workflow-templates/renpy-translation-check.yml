@@ -1,0 +1,59 @@
+name: Ren'py Translations check
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+  workflow_dispatch:
+    inputs:
+      languages:
+        description: "Translation languages"
+        required: false
+        default: "french"
+        type: string
+
+env:
+  RENPY_VERSION: ${{ vars.RENPY_VERSION || 'latest' }}
+  SUPPORTED_LANGUAGES: ${{ inputs.languages || vars.RENPY_TRANSLATION_LANGUAGES || 'french' }}
+
+permissions:
+  contents: read
+
+jobs:
+  translation_check:
+    name: "Translation check"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        path: project
+        lfs: true
+
+    - name: "Prepare Ren'Py cache"
+      id: cache-renpy
+      uses: actions/cache@v4
+      with:
+        path: renpy
+        key: ${{ runner.os }}-renpy-${{ env.RENPY_VERSION }}-core
+
+    - name: "Install Ren'Py"
+      uses: Ayowel/renpy-setup-action@v2
+      if: steps.cache-renpy.outputs.cache-hit != 'true'
+      with:
+        action: install
+        version: ${{ env.RENPY_VERSION }}
+        install_dir: renpy
+
+    - name: "Update translations"
+      uses: Ayowel/renpy-setup-action@v2
+      with:
+        action: translate
+        install_dir: renpy
+        game: project
+        languages: ${{ env.SUPPORTED_LANGUAGES }}
+
+    - name: "Look for translation changes"
+      run: |
+        [[ -z "$(git --no-pager status --porcelain)" ]] || ( git --no-pager diff && exit 1 )
+      working-directory: project

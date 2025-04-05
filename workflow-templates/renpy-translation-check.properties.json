@@ -1,0 +1,13 @@
+{
+    "name": "Ren'Py Translation check",
+    "description": "Make sure that all translation files are up-to-date.",
+    "iconName": "octicon people",
+    "categories": [
+        "Ren'Py",
+        "continuous-integration",
+        "code-quality"
+    ],
+    "filePatterns": [
+        ".*\\.rpy$"
+    ]
+}
