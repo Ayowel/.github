@@ -10,6 +10,9 @@ on:
 env:
   RENPY_VERSION: ${{ vars.RENPY_VERSION || 'latest' }}
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
